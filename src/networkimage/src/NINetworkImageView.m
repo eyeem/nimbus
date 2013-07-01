@@ -376,12 +376,19 @@
       AFImageRequestOperation *operation =
       [AFImageRequestOperation imageRequestOperationWithRequest:request imageProcessingBlock:
        ^UIImage *(UIImage *downloadedImage) {
-         return [NIImageProcessing imageFromSource:downloadedImage
-                                   withContentMode:contentMode
-                                          cropRect:cropRect
-                                       displaySize:displaySize
-                                      scaleOptions:self.scaleOptions
-                              interpolationQuality:self.interpolationQuality];
+         CGFloat screenScale = self.window.screen.scale;
+         CGSize scaledDisplaySize = (CGSize) { displaySize.width * screenScale, displaySize.height * screenScale };
+         if (CGSizeEqualToSize(downloadedImage.size, scaledDisplaySize)) {
+           return downloadedImage;
+         }
+         else {
+           return [NIImageProcessing imageFromSource:downloadedImage
+                                     withContentMode:contentMode
+                                            cropRect:cropRect
+                                         displaySize:displaySize
+                                        scaleOptions:self.scaleOptions
+                                interpolationQuality:self.interpolationQuality];
+         }
 
        } success:^(NSURLRequest *successfulRequest, NSHTTPURLResponse *response, UIImage *processedImage) {
          [self _didFinishLoadingWithImage:processedImage
