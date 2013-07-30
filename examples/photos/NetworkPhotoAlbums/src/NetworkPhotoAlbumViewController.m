@@ -103,7 +103,7 @@
   AFImageRequestOperation* readOp =
   [AFImageRequestOperation imageRequestOperationWithRequest:request
                                        imageProcessingBlock:nil success:
-   ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+   ^(NSURLRequest *req, NSHTTPURLResponse *response, UIImage *image) {
      // Store the image in the correct image cache.
      if (isThumbnail) {
        [_thumbnailImageCache storeObject: image
@@ -127,7 +127,7 @@
      [_activeRequests removeObject:identifierKey];
      
    } failure:
-   ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+   ^(NSURLRequest *req, NSHTTPURLResponse *response, NSError *error) {
      
    }];
 
