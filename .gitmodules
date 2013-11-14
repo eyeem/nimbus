@@ -3,4 +3,4 @@
 	url = https://github.com/johnezang/JSONKit.git
 [submodule "thirdparty/AFNetworking"]
 	path = thirdparty/AFNetworking
-	url = https://github.com/AFNetworking/AFNetworking.git
+	url = git@github.com:eyeem/AFNetworking.git
