@@ -62,7 +62,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString *)cacheKeyForPhotoIndex:(NSInteger)photoIndex {
-  return [NSString stringWithFormat:@"%d", photoIndex];
+  return [NSString stringWithFormat:@"%ld", (long)photoIndex];
 }
 
 

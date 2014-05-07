@@ -108,8 +108,8 @@
 
   } else {
     // Not implemented
-    NIDERROR(@"This content mode has not been implemented in the threaded network image view: %d",
-             contentMode);
+    NIDERROR(@"This content mode has not been implemented in the threaded network image view: %ld",
+             (long)contentMode);
     return CGRectMake(0, 0, imageSize.width, imageSize.height);
   }
 }
@@ -149,8 +149,8 @@
 
   } else {
     // Not implemented
-    NIDERROR(@"This content mode has not been implemented in the threaded network image view: %d",
-             contentMode);
+    NIDERROR(@"This content mode has not been implemented in the threaded network image view: %ld",
+             (long)contentMode);
     return CGRectMake(0, 0, displaySize.width, displaySize.height);
   }
 }
@@ -269,7 +269,7 @@
     // See table "Supported Pixel Formats" in the following guide for support iOS bitmap formats:
     // http://developer.apple.com/library/mac/#documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_context/dq_context.html
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGBitmapInfo bmi = kCGImageAlphaPremultipliedLast;
+    CGBitmapInfo bmi = (CGBitmapInfo)kCGImageAlphaPremultipliedLast;
 
     // For screen sizes with higher resolutions, we create a larger image with a scale value
     // so that it appears crisper on the screen.
