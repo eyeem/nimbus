@@ -523,5 +523,49 @@
 }
 
 
+- (NSArray *)similarCacheInfosForName:(NSString *)name
+{
+    NSString *photoID = [[name lastPathComponent] componentsSeparatedByString:@"{"].firstObject;
+    
+    NSSet *similarObjectsKeys = [self.cacheMap keysOfEntriesWithOptions:NSEnumerationConcurrent
+															passingTest:^BOOL(NSString *key, id obj, BOOL *stop) {
+																NSString *lastPathComponent = [key lastPathComponent];
+																NSArray *lastPathComponents = [lastPathComponent componentsSeparatedByString:@"{"];
+																NSString *similarPhotoID = lastPathComponents.firstObject;
+																
+																if (![similarPhotoID isEqualToString:photoID]
+																	|| lastPathComponents.count < 2) {
+																	return NO;
+																}
+																return YES;
+															}];
+    
+    return [self.cacheMap objectsForKeys:[similarObjectsKeys allObjects] notFoundMarker:[NSNull null]];
+}
+
+
+- (id)similarObjectWithName:(NSString *)name
+{
+	NSArray *similarInfos = [self similarCacheInfosForName:name];
+	NSLog(@"found %d similar images", similarInfos.count);
+	NIMemoryCacheInfo *info = similarInfos.firstObject;
+	
+	id object = nil;
+	
+	if (nil != info) {
+		if ([info hasExpired]) {
+			[self removeObjectWithName:name];
+			
+		} else {
+			// Update the access time whenever we fetch an object from the cache.
+			[self updateAccessTimeForInfo:info];
+			
+			object = info.object;
+		}
+	}
+	
+	return object;
+}
+
 @end
 

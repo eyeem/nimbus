@@ -50,6 +50,7 @@
 - (void)removeAllObjects;
 
 - (id)objectWithName:(NSString *)name;
+- (id)similarObjectWithName:(NSString *)name;
 - (BOOL)containsObjectWithName:(NSString *)name;
 - (NSDate *)dateOfLastAccessWithName:(NSString *)name;
 
