@@ -547,7 +547,6 @@
 - (id)similarObjectWithName:(NSString *)name
 {
 	NSArray *similarInfos = [self similarCacheInfosForName:name];
-	NSLog(@"found %d similar images", similarInfos.count);
 	NIMemoryCacheInfo *info = similarInfos.firstObject;
 	
 	id object = nil;
