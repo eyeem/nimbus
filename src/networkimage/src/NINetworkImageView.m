@@ -60,6 +60,7 @@
     request.delegate = nil;
   }
   [self.operation cancel];
+	self.operation = nil;
 }
 
 
