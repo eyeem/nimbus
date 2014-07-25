@@ -136,6 +136,7 @@ typedef enum {
  * The image has completed an asynchronous download of the image.
  */
 - (void)networkImageView:(NINetworkImageView *)imageView didLoadImage:(UIImage *)image;
+- (void)networkImageView:(NINetworkImageView *)imageView didLoadImage:(UIImage *)image cacheHit:(BOOL)cacheHit;
 
 /**
  * The asynchronous download failed.

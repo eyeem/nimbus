@@ -190,7 +190,10 @@
 
   self.operation = nil;
 
-  if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:)]) {
+  if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:cacheHit:)]) {
+    [self.delegate networkImageView:self didLoadImage:self.image cacheHit:NO];
+  }
+  else if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:)]) {
     [self.delegate networkImageView:self didLoadImage:self.image];
   }
 
@@ -325,7 +328,7 @@
   
   if (NIIsStringWithAnyText(pathToNetworkImage)) {
     NSURL* url = nil;
-
+    
     // Check for file URLs.
     if ([pathToNetworkImage hasPrefix:@"/"]) {
       // If the url starts with / then it's likely a file URL, so treat it accordingly.
@@ -367,7 +370,10 @@
       // We successfully loaded the image from memory.
       [self setImage:image];
       
-      if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:)]) {
+      if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:cacheHit:)]) {
+        [self.delegate networkImageView:self didLoadImage:self.image cacheHit:YES];
+      }
+      else if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:)]) {
         [self.delegate networkImageView:self didLoadImage:self.image];
       }
       
@@ -464,7 +470,10 @@
       // We successfully loaded the image from memory.
       [self setImage:image];
 
-      if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:)]) {
+      if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:cacheHit:)]) {
+        [self.delegate networkImageView:self didLoadImage:self.image cacheHit:YES];
+      }
+      else if ([self.delegate respondsToSelector:@selector(networkImageView:didLoadImage:)]) {
         [self.delegate networkImageView:self didLoadImage:self.image];
       }
 
